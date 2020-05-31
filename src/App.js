@@ -1,26 +1,40 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import FlashcardList from "./components/FlashcardList";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { quizData: SampleData };
+  }
+
+  componentDidMount() {
+    fetch("https://opentdb.com/api.php?amount=10")
+      .then(response => response.json())
+      .then(data => data.results)
+      .then(results => this.setState({ quizData: results }));
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <FlashcardList quizData={this.state.quizData} />
+      </div>
+    );
+  }
 }
+
+const SampleData = [
+  {
+    id: 1,
+    question: "What is 2 + 3?",
+    answer: 5,
+  },
+  {
+    id: 2,
+    question: "Question 2",
+    answer: "answer 2",
+  },
+];
 
 export default App;
