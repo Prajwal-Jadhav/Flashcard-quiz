@@ -32,8 +32,10 @@ export default class Flashcard extends Component {
           <div>
             {[ans, ...options]
               .sort(() => 0.5 - Math.random())
-              .map(option => (
-                <p className="option">{this.decode(option)}</p>
+              .map((option, index) => (
+                <p className="option" key={`${index} ${Date.now()}`}>
+                  {this.decode(option)}
+                </p>
               ))}
           </div>
         </div>

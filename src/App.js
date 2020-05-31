@@ -1,11 +1,12 @@
 import React from "react";
 import "./App.css";
 import FlashcardList from "./components/FlashcardList";
+import Searchbar from "./components/Searchbar";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { quizData: SampleData };
+    this.state = { quizData: [], categories: [] };
   }
 
   componentDidMount() {
@@ -13,28 +14,37 @@ class App extends React.Component {
       .then(response => response.json())
       .then(data => data.results)
       .then(results => this.setState({ quizData: results }));
+
+    fetch("https://opentdb.com/api_category.php")
+      .then(response => response.json())
+      .then(data => data.trivia_categories)
+      .then(categories => this.setState({ categories: categories }));
   }
+
+  onSubmit = (category, amount) => {
+    let categoryIndex = this.state.categories.find(
+      item => item.name === category
+    ).id;
+
+    fetch(
+      `https://opentdb.com/api.php?amount=${amount}&category=${categoryIndex}`
+    )
+      .then(response => response.json())
+      .then(data => data.results)
+      .then(results => this.setState({ quizData: results }));
+  };
 
   render() {
     return (
       <div className="App">
+        <Searchbar
+          onSubmit={this.onSubmit}
+          categories={this.state.categories}
+        />
         <FlashcardList quizData={this.state.quizData} />
       </div>
     );
   }
 }
-
-const SampleData = [
-  {
-    id: 1,
-    question: "What is 2 + 3?",
-    answer: 5,
-  },
-  {
-    id: 2,
-    question: "Question 2",
-    answer: "answer 2",
-  },
-];
 
 export default App;
