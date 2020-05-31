@@ -16,6 +16,7 @@ body {
   font-size: 16px;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   flex-wrap: wrap;
+  box-shadow: 0 0 15px 0px rgba(0, 0, 0, 0.2);
 }
 
 .selectmenu {
@@ -61,13 +62,17 @@ body {
 .FlashcardList {
   display: grid;
   margin-top: 40px;
-  padding: 0 20px 20px;
-  gap: 30px 30px;
+  padding: 0 20px 40px;
+  gap: 50px 30px;
   grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
 }
 
+.react-card-flip {
+  align-self: center;
+}
+
 .Flashcard {
-  min-height: 150px;
+  height: 100%;
   align-self: center;
   padding: 10px 15px;
   background-color: white;
@@ -76,7 +81,7 @@ body {
   cursor: pointer;
   transition-duration: 100ms;
   transition-timing-function: linear;
-  /* position: relative; */
+  backface-visibility: hidden;
 }
 
 .Flashcard:hover {
@@ -88,23 +93,20 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
 }
 
-/* .back {
-  animation-name: flipped;
-  animation-duration: 500ms;
-  animation-delay: 0s;
-  animation-iteration-count: 1;
-  animation-fill-mode: both;
+.question {
+  font-size: 20px;
 }
 
-@keyframes flipped {
-  0% {
-    transform: rotateY(180deg);
-  }
+.option {
+  color: rgb(139, 139, 139);
+}
 
-  100% {
-    transform: rotateY(0);
-  }
-} */
+.answer {
+  font-size: 20px;
+}
+
+.footer {
+  text-align: center;
+}

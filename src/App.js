@@ -42,6 +42,7 @@ class App extends React.Component {
           categories={this.state.categories}
         />
         <FlashcardList quizData={this.state.quizData} />
+        <p className="footer">made with ❤ by Prajwal Jadhav</p>
       </div>
     );
   }
